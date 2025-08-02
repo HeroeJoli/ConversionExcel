@@ -8,7 +8,7 @@ tabla = pd.read_excel(tabla_input)
 id_vars = []
 nm_colmnas_idnt = input("Pon el *numero* de columnas de identificación:")
 for i in range(int(nm_colmnas_idnt)):
-    columna = input(f"Por el nombre de la columna identificatioria numero {i}: ")
+    columna = input(f"Por el nombre de la columna identificatioria numero {i+1}: ")
     id_vars.append(columna)
 #id_vars = ["letra", "patron", "patron"]
 
@@ -25,6 +25,6 @@ tabla_largo = tabla.melt(id_vars=id_vars,
 
 # Guardar en nuevo Excel
 nombre_nuevoexcl = input("Nombre del nuevo excel (sin .xlsx): ")
-tabla_largo.to_excel(nombre_nuevoexcl, index=False)
+tabla_largo.to_excel(f"{nombre_nuevoexcl}.xlsx", index=False)
 
 print("Transformación completada. Guardado como 'tabla_convertida.xlsx'")

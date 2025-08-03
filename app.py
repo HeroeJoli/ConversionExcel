@@ -8,7 +8,8 @@ app = Flask(__name__)
 def main():
     if request.method == "POST":
         archivo = request.files["archivo"]
-        terminacion = archivo.split('.')[-1] #e.g. xlsx
+        nombre_archivo = archivo.filename
+        terminacion = nombre_archivo.split('.')[-1] #e.g. xlsx
         # Parámetros de transformación
         num_cols = int(request.form["num_cols"])
         id_vars = [request.form[f"id_col_{i}"] for i in range(num_cols)]

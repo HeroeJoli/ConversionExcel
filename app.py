@@ -31,12 +31,16 @@ def main():
             df_largo.to_csv(output, index=False)
         output.seek(0)
 
-        # Descargar archivo transformado
+        if terminacion == "xlsx":
+            download_name = f"{nombre_salida}.xlsx"
+        else: 
+            download_name = f"{nombre_salida}.csv"
+
         return send_file(output,
-                        download_name=f"{nombre_salida}.xlsx",
+                        download_name=download_name,
                         as_attachment=True)
 
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)  
+    app.run(debug=False)  

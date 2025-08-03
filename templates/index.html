@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transformar Excel</title>
+</head>
+    <script>
+        function generarInputs() {
+            const contenedor = document.getElementById("campos_id");
+            contenedor.innerHTML = ""; // Borrar campos anteriores
+
+            const cantidad = document.getElementById("num_cols").value;
+
+            for (let i = 0; i < cantidad; i++) {
+                const label = document.createElement("label");
+                label.textContent = `Columna ID ${i + 1}: `;
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = `id_col_${i}`;
+                input.required = true;
+
+                contenedor.appendChild(label);
+                contenedor.appendChild(input);
+                contenedor.appendChild(document.createElement("br"));
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Sube tu Excel y elige cómo transformarlo</h2>
+    <form method="post" enctype="multipart/form-data">
+        Archivo Excel: <input type="file" name="archivo" required><br><br>
+
+        Número de columnas identificatorias: <input type="number" name="num_cols" id="num_cols" min="1" onchange="generarInputs()" required><br><br>
+
+
+        <div id="campos_id"></div>
+
+        Nombre de la columna de valor (libre): <input type="text" name="valor_col" value="cantidad"><br><br>
+        Nombre del archivo de salida (sin .xlsx): <input type="text" name="nombre_salida" value="arhcivo_database" required><br><br>
+
+        <button type="submit">Transformar</button>
+    </form>
+</body>
+</html>

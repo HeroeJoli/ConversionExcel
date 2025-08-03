@@ -8,7 +8,7 @@ app = Flask(__name__)
 def main():
     if request.method == "POST":
         archivo = request.files["archivo"]
-
+        terminacion = archivo.split('.')[-1] #e.g. xlsx
         # Parámetros de transformación
         num_cols = int(request.form["num_cols"])
         id_vars = [request.form[f"id_col_{i}"] for i in range(num_cols)]
@@ -16,12 +16,18 @@ def main():
         nombre_salida = request.form["nombre_salida"]
 
         # Leer y transformar
-        df = pd.read_excel(archivo)
+        if terminacion == "xlsx":
+            df = pd.read_excel(archivo)
+        else:
+            df = pd.read_csv(archivo)
         df_largo = df.melt(id_vars=id_vars, var_name="w", value_name=valor_col)
 
         # Guardar en memoria (no disco)
         output = io.BytesIO()
-        df_largo.to_excel(output, index=False)
+        if terminacion == "xlsx":
+            df_largo.to_excel(output, index=False)
+        else:
+            df_largo.to_csv(output, index=False)
         output.seek(0)
 
         # Descargar archivo transformado
